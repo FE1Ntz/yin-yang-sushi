@@ -1,6 +1,5 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import Layout from "@/Layouts/Layout.vue";
 
 defineProps({
     canLogin: {
@@ -13,8 +12,6 @@ defineProps({
 </script>
 
 <template>
-    <Layout>
 
-    </Layout>
 </template>
 
