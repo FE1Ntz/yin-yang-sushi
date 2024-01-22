@@ -10,6 +10,20 @@
 }
 
 
+body{
+    min-height: 100vh;
+}
+
+div#app{
+    min-height: inherit;
+}
+
+div#log-in-div{
+    background-image: url("/img/login-bg.jpg");
+    background-size: cover;
+    background-position: bottom;
+}
+
 .switch {
     position: relative;
     display: inline-block;

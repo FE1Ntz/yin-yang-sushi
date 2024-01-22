@@ -21,7 +21,12 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
-});
+})->name('index');
+
+Route::get('/about-us', function () {
+    return Inertia::render('AboutUs');
+})->name('about-us');
+
 
 Route::get('/old_welcome', function () {
     return Inertia::render('Welcome', [
