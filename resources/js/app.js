@@ -18,11 +18,8 @@ createInertiaApp({
         );
         page.then((module) => {
             console.log(module);
-            if(module.default.props.layout){
-
-            }
-            else {
-                module.default.layout = module.default.layout || DefaultLayout;
+            if(!module.default.props || !module.default.props.layout){
+                module.default.layout = DefaultLayout;
             }
         });
         return page;
