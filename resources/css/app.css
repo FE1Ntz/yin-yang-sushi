@@ -10,8 +10,9 @@
 }
 
 
-body{
-    min-height: 100vh;
+body, html{
+    min-height: 100% !important;
+    height: 100%;
 }
 
 div#app{
@@ -89,4 +90,26 @@ input:checked + .slider:before {
     background-image: url("/icons/yin-yang/yin-yang-dark.svg");
     background-repeat: no-repeat;
     background-position: center;
+}
+
+
+::-webkit-scrollbar-track
+{
+    /*border: 5px solid white;
+    background-color: #b2bec3;*/
+    display: none;
+}
+
+::-webkit-scrollbar
+{
+    width: 15px;
+    background-color: #dfe6e9;
+    display: none;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: #000;
+    border-radius: 10px;
+    display: none;
 }
