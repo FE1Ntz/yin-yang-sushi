@@ -4,8 +4,8 @@ import { Link } from '@inertiajs/vue3';
 
 <template>
      <header id="header">
-         <div class="flex justify-between leading-5 font-custom text-[30px] text-black dark:text-white py-5 px-4">
-             <div>
+         <div class="flex justify-between leading-5 text-[30px] text-black dark:text-white py-5 px-4">
+             <div class="font-custom">
                  YIN&<br>YANG
              </div>
              <div class="flex text-[20px] justify-end items-center">
@@ -13,12 +13,32 @@ import { Link } from '@inertiajs/vue3';
                      <input id="change-theme-input" type="checkbox">
                      <span @click="toggleChecked" id="change-theme-button" class="slider round"></span>
                  </label>
-                 <ul class="flex">
-                     <li class="px-4"><Link :href="route('index')">Home</Link></li>
-                     <li class="px-4"><Link :href="route('index')">Menu</Link></li>
-                     <li class="px-4"><Link :href="route('login')"><img :src="'/icons/user/user-' + colorTheme +'.svg'" alt="SVG Icon"></Link></li>
-                     <li class="px-4"><Link href="/*route('shopping-cart')*/"><img :src="'/icons/shopping-cart/shopping-cart-' + colorTheme +'.svg'" alt="SVG Icon"></Link></li>
-                 </ul>
+                 <div class="flex text-[17px]">
+                     <div class="px-4">
+                         <Link class="flex flex-col items-center" :href="route('index')">
+                             <img :src="'/icons/home/home-' + colorTheme +'.svg'" alt="SVG Icon">
+                             Home
+                         </Link>
+                     </div>
+                     <div class="px-4">
+                         <Link class="flex flex-col items-center" :href="route('index')">
+                             <img :src="'/icons/menu/menu-' + colorTheme +'.svg'" alt="SVG Icon">
+                             Menu
+                         </Link>
+                     </div>
+                     <div class="px-4">
+                         <Link class="flex flex-col items-center" href="/*route('shopping-cart')*/">
+                             <img :src="'/icons/shopping-cart/shopping-cart-' + colorTheme +'.svg'" alt="SVG Icon">
+                             Cart
+                         </Link>
+                     </div>
+                     <div class="px-4">
+                         <Link class="flex flex-col items-center" :href="route('login')">
+                             <img :src="'/icons/user/user-' + colorTheme +'.svg'" alt="SVG Icon">
+                             Log in
+                         </Link>
+                     </div>
+                 </div>
              </div>
          </div>
      </header>
