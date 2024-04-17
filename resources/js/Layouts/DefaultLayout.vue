@@ -17,29 +17,43 @@ import { Link } from '@inertiajs/vue3';
                      <div class="px-4">
                          <Link class="flex flex-col items-center" :href="route('index')">
                              <img :src="'/icons/home/home-' + colorTheme +'.svg'" alt="SVG Icon">
-                             Home
+                             <span>
+                                Home
+                             </span>
                          </Link>
                      </div>
                      <div class="px-4">
                          <Link class="flex flex-col items-center" :href="route('index')">
                              <img :src="'/icons/menu/menu-' + colorTheme +'.svg'" alt="SVG Icon">
-                             Menu
+                             <span>
+                                 Menu
+                             </span>
                          </Link>
                      </div>
                      <div class="px-4">
                          <Link class="flex flex-col items-center" href="/*route('shopping-cart')*/">
                              <img :src="'/icons/shopping-cart/shopping-cart-' + colorTheme +'.svg'" alt="SVG Icon">
-                             Cart
+                             <span>
+                                 Cart
+                             </span>
                          </Link>
                      </div>
                      <div class="px-4">
-                         <Link class="flex flex-col items-center" :href="route('login')">
+                         <Link class="flex flex-col items-center" :href="$page.props.auth.user ? route('profile') : route('login')">
                              <img :src="'/icons/user/user-' + colorTheme +'.svg'" alt="SVG Icon">
-                             Log in
+                             <span v-if="$page.props.auth.user">
+                                 Profile
+                             </span>
+                             <span v-else>
+                                 Log in
+                             </span>
                          </Link>
                      </div>
                  </div>
              </div>
+         </div>
+         <div class="flex justify-center">
+             <hr class="w-11/12">
          </div>
      </header>
 
