@@ -53,7 +53,7 @@ import { Link } from '@inertiajs/vue3';
              </div>
          </div>
          <div class="flex justify-center">
-             <hr class="w-11/12">
+             <hr class="w-full h-[2px] border-none bg-black dark:bg-white">
          </div>
      </header>
 

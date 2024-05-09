@@ -1,5 +1,7 @@
 <script setup>
+import AdminLayout from "@/Layouts/AdminLayout.vue";
 defineProps({
+    layout: AdminLayout,
     canLogin: {
         type: Boolean,
     },
@@ -10,6 +12,9 @@ defineProps({
 </script>
 
 <template>
-
+123123123
 </template>
 
+<style scoped>
+
+</style>
