@@ -12,7 +12,9 @@ defineProps({
 </script>
 
 <template>
-123123123
+    <div class="flex">
+
+    </div>
 </template>
 
 <style scoped>

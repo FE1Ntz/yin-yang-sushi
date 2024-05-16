@@ -19,7 +19,6 @@ createInertiaApp({
         page.then((module) => {
             console.log(module.default.layout);
             if(!module.default.props || !module.default.props.layout){
-                console.log(module.default.props);
                 module.default.layout = DefaultLayout;
             }
             else{
