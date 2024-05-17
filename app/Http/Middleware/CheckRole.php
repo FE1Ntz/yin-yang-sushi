@@ -19,6 +19,6 @@ class CheckRole
             }
         }
 
-        return redirect('/'); // або ви можете повернути 403 Forbidden
+        abort(403, 'Unauthorized action.');
     }
 }

@@ -38,7 +38,15 @@ import { Link } from '@inertiajs/vue3';
                              </span>
                          </Link>
                      </div>
-                     <div class="px-4">
+                     <div v-if="$page.props.auth.user?.role === 'admin'" class="px-4">
+                         <Link class="flex flex-col items-center" :href="route('admin')">
+                             <img :src="'/icons/user/user-' + colorTheme +'.svg'" alt="SVG Icon">
+                             <span>
+                                 Admin
+                             </span>
+                         </Link>
+                     </div>
+                     <div v-else class="px-4">
                          <Link class="flex flex-col items-center" :href="$page.props.auth.user ? route('profile') : route('login')">
                              <img :src="'/icons/user/user-' + colorTheme +'.svg'" alt="SVG Icon">
                              <span v-if="$page.props.auth.user">
