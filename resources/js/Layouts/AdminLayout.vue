@@ -1,18 +1,22 @@
 <template>
-    <div class="flex">
-        <div class="w-[220px] border-r-2 border-black h-dvh flex flex-col text-black">
+    <div class="flex h-dvh">
+        <div class="w-[220px] border-r-2 border-black flex flex-col text-black">
             <div class="flex leading-5 text-[30px] justify-center font-custom  mt-16">
                 YIN&<br>YANG
             </div>
             <div class="flex mt-16 h-full flex-col">
-                <div class="flex m-4">
-                    <img :src="'/icons/orders/orders-' + colorTheme +'.svg'" alt="SVG Icon">
-                    <span class="ml-2">Замовлення</span>
-                </div>
-                <div class="flex m-4">
-                    <img :src="'/icons/menu/menu-' + colorTheme +'.svg'" alt="SVG Icon">
-                    <span class="ml-2">Меню</span>
-                </div>
+                <Link :href="route('admin.index')">
+                    <div class="flex m-4">
+                        <img :src="'/icons/orders/orders-' + colorTheme +'.svg'" alt="SVG Icon">
+                        <span class="ml-2">Замовлення</span>
+                    </div>
+                </Link>
+                <Link :href="route('admin.menu')">
+                    <div class="flex m-4">
+                        <img :src="'/icons/menu/menu-' + colorTheme +'.svg'" alt="SVG Icon">
+                        <span class="ml-2">Меню</span>
+                    </div>
+                </Link>
                 <div class="flex m-4">
                     <img :src="'/icons/analytics/analytics-' + colorTheme +'.svg'" alt="SVG Icon">
                     <span class="ml-2">Аналітика</span>

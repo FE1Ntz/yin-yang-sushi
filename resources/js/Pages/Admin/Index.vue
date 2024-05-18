@@ -1,22 +1,16 @@
-<script setup>
-import AdminLayout from "@/Layouts/AdminLayout.vue";
-defineProps({
-    layout: AdminLayout,
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
-});
-</script>
-
 <template>
-    <div class="flex">
-
-    </div>
+    <AdminLayout>
+        <div class="flex">
+            asdasdasd123123
+        </div>
+    </AdminLayout>
 </template>
 
-<style scoped>
+<script>
+import AdminLayout from "@/Layouts/AdminLayout.vue";
+import {defineComponent} from "vue";
 
-</style>
+export default defineComponent({
+    components: {AdminLayout}
+})
+</script>

@@ -39,7 +39,7 @@ import { Link } from '@inertiajs/vue3';
                          </Link>
                      </div>
                      <div v-if="$page.props.auth.user?.role === 'admin'" class="px-4">
-                         <Link class="flex flex-col items-center" :href="route('admin')">
+                         <Link class="flex flex-col items-center" :href="route('admin.index')">
                              <img :src="'/icons/user/user-' + colorTheme +'.svg'" alt="SVG Icon">
                              <span>
                                  Admin

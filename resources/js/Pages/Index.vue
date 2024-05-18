@@ -1,4 +1,5 @@
 <script setup>
+import DefaultLayout from "@/Layouts/DefaultLayout.vue";
 defineProps({
     canLogin: {
         type: Boolean,
@@ -10,6 +11,6 @@ defineProps({
 </script>
 
 <template>
-
+    <DefaultLayout></DefaultLayout>
 </template>
 

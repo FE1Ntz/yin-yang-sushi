@@ -11,22 +11,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) =>{
-        const page = resolvePageComponent(
-            `./Pages/${name}.vue`,
-            import.meta.glob("./Pages/**/*.vue")
-        );
-        page.then((module) => {
-            console.log(module.default.layout);
-            if(!module.default.props || !module.default.props.layout){
-                module.default.layout = DefaultLayout;
-            }
-            else{
-                module.default.layout = module.default.props.layout;
-            }
-        });
-        return page;
-    },
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
