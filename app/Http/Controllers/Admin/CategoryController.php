@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
 use Exception;
 use Illuminate\Http\Request;
@@ -21,14 +20,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return Inertia::render('Admin/Category/Create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
@@ -40,22 +31,6 @@ class CategoryController extends Controller
         } catch (Exception $ex) {
             return redirect()->route('products.index');
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        return Inertia::render('Admin/Category/Edit', ['category' => $category]);
     }
 
     /**
