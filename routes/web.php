@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -44,8 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('role:admin');
-    Route::get('/admin/menu', [AdminController::class, 'menu'])->name('admin.menu')->middleware('role:admin');
+    Route::get('/admin', function (){
+        return Inertia::render('Admin/Index');
+    })->name('admin.index')->middleware('role:admin');
+    Route::resource('/admin/categories', CategoryController::class)->middleware('role:admin');
 });
 
 

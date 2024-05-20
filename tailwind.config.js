@@ -9,16 +9,22 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
+        'node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx,vue}',
+        'node_modules/flowbite/**/*.{js,jsx,ts,tsx}'
     ],
     theme: {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-                custom: ['RobotoMono', 'monospace'],
+                robotoMono: ['RobotoMono', 'monospace'],
+                montserrat: ['Montserrat']
             },
         },
     },
     darkMode: 'class',
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        require('flowbite/plugin')
+    ],
 };

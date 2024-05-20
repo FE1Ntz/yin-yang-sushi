@@ -138,8 +138,8 @@ export default {
         return {
             windowHeight: this.windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight,
             bgHeight: 0,
-            loginForm: useForm({ email: '', password: '', remember: false}),
-            registrationForm: useForm({ email: '', password: '', password_confirmation: ''}),
+            loginForm: this.createLoginForm(),
+            registrationForm: this.createRegistrationForm(),
         };
     },
 
@@ -155,6 +155,14 @@ export default {
                 this.windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
                 this.bgHeight = `min-h-[${this.windowHeight - document.getElementById('header').offsetHeight}px]`;
             });
+        },
+
+        createLoginForm() {
+            return useForm({ email: '', password: '', remember: false });
+        },
+
+        createRegistrationForm() {
+            return useForm({ email: '', password: '', password_confirmation: '' });
         },
 
         login(){

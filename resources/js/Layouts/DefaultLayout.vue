@@ -5,7 +5,7 @@ import { Link } from '@inertiajs/vue3';
 <template>
      <header id="header">
          <div class="flex justify-between leading-5 text-[30px] text-black dark:text-white py-5 px-4">
-             <div class="font-custom">
+             <div class="font-robotoMono">
                  <Link :href="route('index')">YIN&<br>YANG</Link>
              </div>
              <div class="flex text-[20px] justify-end items-center">

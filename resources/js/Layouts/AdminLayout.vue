@@ -1,7 +1,7 @@
 <template>
     <div class="flex h-dvh">
         <div class="w-[220px] border-r-2 border-black flex flex-col text-black">
-            <div class="flex leading-5 text-[30px] justify-center font-custom  mt-16">
+            <div class="flex leading-5 text-[30px] justify-center font-robotoMono mt-16">
                 YIN&<br>YANG
             </div>
             <div class="flex mt-16 h-full flex-col">
@@ -11,10 +11,10 @@
                         <span class="ml-2">Замовлення</span>
                     </div>
                 </Link>
-                <Link :href="route('admin.menu')">
+                <Link :href="route('categories.index')">
                     <div class="flex m-4">
                         <img :src="'/icons/menu/menu-' + colorTheme +'.svg'" alt="SVG Icon">
-                        <span class="ml-2">Меню</span>
+                        <span class="ml-2">Категорії</span>
                     </div>
                 </Link>
                 <div class="flex m-4">

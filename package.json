@@ -19,6 +19,8 @@
         "vue": "^3.4.14"
     },
     "dependencies": {
+        "flowbite": "^2.3.0",
+        "flowbite-vue": "^0.1.4",
         "twind": "^0.16.19",
         "ziggy": "^2.4.0"
     }
