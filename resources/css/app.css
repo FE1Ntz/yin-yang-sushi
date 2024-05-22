@@ -13,7 +13,6 @@
 body, html{
     min-height: 100% !important;
     height: 100%;
-    background-color: #9ca3af;
 }
 
 div#app{
@@ -113,4 +112,12 @@ input:checked + .slider:before {
     background-color: #000;
     border-radius: 10px;
     display: none;
+}
+
+.product-card-img-aspect-ratio{
+    aspect-ratio: 3/2;
+}
+
+.grid-cols-fill-326 {
+    grid-template-columns: repeat(auto-fill, minmax(326px, 1fr));
 }
