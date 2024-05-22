@@ -23,6 +23,12 @@
                         <span class="ml-2">Інгредієнти</span>
                     </div>
                 </Link>
+                <Link :href="route('products.index')">
+                    <div class="flex m-4">
+                        <img :src="'/icons/menu/menu-' + colorTheme +'.svg'" alt="SVG Icon">
+                        <span class="ml-2">Продукти</span>
+                    </div>
+                </Link>
                 <div class="flex m-4">
                     <img :src="'/icons/analytics/analytics-' + colorTheme +'.svg'" alt="SVG Icon">
                     <span class="ml-2">Аналітика</span>

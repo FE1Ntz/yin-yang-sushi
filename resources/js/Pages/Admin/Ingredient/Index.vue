@@ -71,7 +71,7 @@
         <div v-if="showDeleteModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
             <div class="bg-white p-8 rounded-lg w-1/3">
                 <h2 class="text-2xl mb-4">Підтвердіть видалення</h2>
-                <p>Ви впевнені, що хочете видалити категорію "{{ form.name }}"?</p>
+                <p>Ви впевнені, що хочете видалити інгредієнт "{{ form.name }}"?</p>
                 <div class="flex justify-end mt-4">
                     <button type="button" @click="closeModal" class="mr-4 bg-gray-300 px-4 py-2 rounded-md">Скасувати</button>
                     <button type="button" @click="deleteCategory" class="bg-red-600 text-white px-4 py-2 rounded-md">Видалити</button>

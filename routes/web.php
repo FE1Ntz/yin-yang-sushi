@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\IngredientController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::middleware('auth')->group(function () {
     })->name('admin.index')->middleware('role:admin');
     Route::resource('/admin/categories', CategoryController::class)->middleware('role:admin');
     Route::resource('/admin/ingredients', IngredientController::class)->middleware('role:admin');
+    Route::resource('/admin/products', ProductController::class)->middleware('role:admin');
 });
 
 

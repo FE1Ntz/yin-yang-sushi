@@ -55,9 +55,14 @@ class IngredientController extends Controller
     public function destroy(Ingredient $ingredient)
     {
         try {
+            if ($ingredient->products()->exists()) {
+                throw new \Exception('Цей інгредієнт використовується у продуктах. Видалення неможливе.');
+            }
+
             $ingredient->delete();
             return redirect()->route('ingredients.index');
         } catch (Exception $ex){
+            dd($ex->getMessage());
             return redirect()->route('ingredients.index');
         }
     }
