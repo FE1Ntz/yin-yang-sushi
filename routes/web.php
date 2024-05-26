@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\IngredientController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ThemeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,6 +39,9 @@ Route::get('/old_welcome', function () {
         'canRegister' => Route::has('register'),
     ]);
 });
+
+Route::post('/set-theme', [ThemeController::class, 'setTheme'])->name('set-theme');
+Route::get('/get-theme', [ThemeController::class, 'getTheme'])->name('get-theme');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
