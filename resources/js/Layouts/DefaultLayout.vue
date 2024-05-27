@@ -64,7 +64,7 @@ import ThemeSwitch from "@/Components/ThemeSwitch.vue";
      </header>
 
      <!-- Page Content -->
-         <slot />
+    <slot :themeColor="themeColor" />
 
     <footer>
 

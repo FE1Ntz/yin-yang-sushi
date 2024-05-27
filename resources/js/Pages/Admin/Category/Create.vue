@@ -43,7 +43,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import {useForm} from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import {Link} from "@inertiajs/vue3";
-import {goTo} from "@/utils/utils.js";
+import {goTo} from "@/Utils/utils.js";
 
 export default {
     components: {

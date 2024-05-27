@@ -3,6 +3,7 @@ import '../css/app.css';
 import '../../node_modules/flowbite-vue/dist/index.css'
 
 import { createApp, h } from 'vue';
+import ToastPlugin from './Plugins/toast';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
@@ -15,6 +16,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(ToastPlugin)
             .use(ZiggyVue)
             .mount(el);
     },

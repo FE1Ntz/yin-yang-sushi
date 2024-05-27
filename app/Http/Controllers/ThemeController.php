@@ -10,7 +10,7 @@ class ThemeController extends Controller
     public function setTheme(Request $request)
     {
         Session::put('theme', $request->theme);
-        return response()->json(['status' => 'success', 'data' => Session::get('theme','white')]);
+        return response()->json(['status' => 'success']);
     }
 
     public function getTheme()
