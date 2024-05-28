@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Product;
-use Exception;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -33,37 +33,31 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            //dd(request()->all());
-            $product = $this->createProduct($request);
+        $product = $this->createProduct($request);
 
-            $ingredients = request()->input('ingredients');
-            $ingredientsIds = collect($ingredients)->pluck('id')->toArray();
-            $product->ingredients()->attach($ingredientsIds);
+        $ingredients = request()->input('ingredients');
+        $ingredientsIds = collect($ingredients)->pluck('id')->toArray();
+        $product->ingredients()->attach($ingredientsIds);
 
-            return redirect()->route('products.index');
-        } catch (Exception $ex) {
-            dd($request->all(), $ex);
-            return redirect()->route('products.index');
-        }
+        return redirect()->route('products.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
-        try {
-            $product->update($request->all());
+        $request->validate([
+            'name' => 'required',
+        ]);
+        $product->update($request->all());
 
-            $ingredients = request()->input('ingredients');
-            $ingredientsIds = collect($ingredients)->pluck('id')->toArray();
-            $product->ingredients()->sync($ingredientsIds);
+        $ingredients = request()->input('ingredients');
+        $ingredientsIds = collect($ingredients)->pluck('id')->toArray();
+        $product->ingredients()->sync($ingredientsIds);
 
-            return redirect()->route('products.index');
-        } catch (Exception $ex){
-            return redirect()->route('products.index');
-        }
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -71,14 +65,9 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        try {
-            $product->delete();
+        $product->delete();
 
-            return redirect()->route('products.index');
-        } catch (Exception $ex){
-            dd($ex->getMessage());
-            return redirect()->route('products.index');
-        }
+        return redirect()->route('products.index');
     }
 
     private function createProduct(Request $request): Product

@@ -1,7 +1,7 @@
 <template>
     <div class="relative">
         <div @click="toggleDropdown">
-            <div class="flex items-center justify-between w-full p-3 focus:ring-black focus:dark:ring-white focus:border-black focus:dark:border-white border border-gray-300 rounded-md cursor-pointer">
+            <div class="flex items-center justify-between w-full py-2 px-3 focus:ring-black focus:dark:ring-white focus:border-black focus:dark:border-white border border-gray-300 rounded-md cursor-pointer">
                 <div class="flex flex-wrap">
                     <span v-if="componentSelectedItems.length === 0">Select items...</span>
                     <span v-else>{{ componentSelectedItems.map((item) => item.name).join(', ')}}</span>

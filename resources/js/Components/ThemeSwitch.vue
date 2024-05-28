@@ -7,8 +7,6 @@
 
 <script>
 
-import { toast } from "vue3-toastify";
-
 export default {
     data(){
       return {
@@ -50,7 +48,6 @@ export default {
             axios.post(route('set-theme'), {theme: this.theme}).catch(() => {
                 this.isChecked = false;
                 this.theme = 'white';
-                toast.error('Виникла помилка під час зміни теми');
             });
         }
     },

@@ -1,7 +1,8 @@
 <template>
-    <div class="h-full flex flex-col bg-black dark:bg-white text-white dark:text-black rounded-lg p-5">
-        <div class="flex justify-center bg-white dark:bg-black overflow-hidden product-card-img-aspect-ratio rounded-lg items-center">
-            <img class="w-full h-auto h-min-[220px] max-w-[330px] rounded-md" :src="product.image" alt="sushi">
+    <div class="h-full flex flex-col relative bg-black dark:bg-white text-white dark:text-black rounded-lg p-5">
+        <div v-if="product.discount > 0" class="bg-red-700 top-[10px] left-[10px] p-1 rounded-lg text-white absolute">{{ product.discount }} %</div>
+        <div class="flex justify-center bg-white dark:bg-black overflow-hidden rounded-lg items-center">
+            <img class="max-w-[330px] h-[220px] rounded-md" :src="product.image" alt="sushi">
         </div>
         <div class="font-bold mt-2 text-[28px]">{{ product.name }}</div>
         <div class="mt-0.5">{{ product.weight }} г</div>
@@ -10,14 +11,20 @@
         </div>
         <div class="flex mt-auto pt-4 justify-between">
             <div class="text-[23px] flex items-center font-bold">
-                {{ formatPrice(product.price) }}
+                {{ calculatePrice() }}
             </div>
             <div class="flex">
-                <template v-if="showAddToFavorite">
+                <template v-if="quantity >= 1">
                     <div class="quantity-container flex items-center gap-4">
-                        <button @click="decrement" class="quantity-button bg-green-100 rounded-lg w-12 h-12 flex items-center justify-center text-green-500 text-xl">-</button>
-                        <span class="text-xl">{{ quantity }}</span>
-                        <button @click="increment" class="quantity-button bg-green-100 rounded-lg w-12 h-12 flex items-center justify-center text-green-500 text-xl">+</button>
+                        <button @click="decrement(product)" class="bg-white dark:bg-black rounded-md flex w-[48px] h-[48px] justify-center px-2 items-center">
+                            <img :src="'/icons/minus/minus-' + themeColor + '.svg'" alt="add">
+                        </button>
+                        <span class="text-xl">
+                            {{ quantity }}
+                        </span>
+                        <button @click="increment(product)" class="bg-white dark:bg-black rounded-md flex w-[48px] h-[48px] justify-center px-2 items-center">
+                            <img :src="'/icons/plus/plus-' + themeColor + '.svg'" alt="add">
+                        </button>
                     </div>
                 </template>
                 <template v-else>
@@ -26,7 +33,7 @@
                     >
                         <img :src="'/icons/like/like-' + themeColor + '-' + isLiked + '.svg'" class="w-[25px] h-[25px]" alt="like">
                     </button>
-                    <button @click="showAddToFavorite = !showAddToFavorite" class="bg-white dark:bg-black rounded-md flex w-[76px] h-[48px] justify-center px-2 items-center">
+                    <button @click="increment(product)" class="bg-white dark:bg-black rounded-md flex w-[76px] h-[48px] justify-center px-2 items-center">
                         <img :src="'/icons/plus/plus-' + themeColor + '.svg'" alt="add">
                     </button>
                 </template>
@@ -36,15 +43,13 @@
 </template>
 
 <script>
-import {formatPrice} from "@/Utils/utils.js";
+import {setCartItemQuantity, formatPrice, getCartItems} from "@/Utils/utils.js";
 
 export default {
     data(){
         return {
-            showAddToFavorite: false,
-            quantity: 1,
+            quantity: 0,
             isLiked: false,
-
         }
     },
 
@@ -61,8 +66,14 @@ export default {
         },
     },
 
+    mounted() {
+        let item = getCartItems().filter((item) => item.id === this.product.id)[0];
+        if(item !== undefined){
+            this.quantity = item.quantity;
+        }
+    },
+
     methods: {
-        formatPrice,
         likeProduct(){
             if(this.$page.props.auth.user){
                 this.isLiked = !this.isLiked
@@ -76,18 +87,32 @@ export default {
             this.$emit('onProductLiked',true);
         },
 
-        increment() {
-            this.quantity += 1;
+        calculatePrice(){
+            if(this.product. discount === 0){
+                return formatPrice(this.product.price);
+            }
+
+            return formatPrice(this.product.price * this.product.discount / 100);
         },
 
-        decrement() {
-            if (this.quantity > 1) {
-                this.quantity -= 1;
+        increment(product) {
+            this.quantity += 1;
+            this.$eventBus.emit('onProductQuantityChanges', 1);
+            setCartItemQuantity(product, this.quantity);
+            if (this.quantity === 1){
+                this.$toast.show('Продукт було додано до корзини!', 3000);
             }
-            else{
-                this.showAddToFavorite = !this.showAddToFavorite
+        },
+
+        decrement(product) {
+            this.quantity -= 1;
+            if (this.quantity === 0) {
+                this.$toast.show('Продукт було вилучено з корзини!', 3000);
             }
-        }
+
+            setCartItemQuantity(product, this.quantity);
+            this.$eventBus.emit('onProductQuantityChanges', -1);
+        },
     }
 }
 

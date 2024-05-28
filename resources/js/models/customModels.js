@@ -16,8 +16,7 @@ export const product = {
     category_id: 0,
     price: 0.00,
     weight: 0.00,
-    image: '',
+    image: null,
     discount: 0,
-    //discounted_price: 0,
     ingredients: [],
 }

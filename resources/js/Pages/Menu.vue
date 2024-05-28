@@ -2,24 +2,25 @@
     <DefaultLayout v-slot="{ themeColor }">
         <div class="flex">
             <div class="p-4 flex-1 overflow-y-auto">
-                <div class="flex flex-wrap justify-center mt-8">
-                    <div v-for="category in categories" @click="selectedCategory = category.name"
-                         class="m-2 font-montserrat dark:text-white text-[23px] border-b-2 border-black dark:border-white"
-                    >
-                        {{ category.name }}
-                    </div>
-                    <div @click="selectedCategory = 'allCategories'"
+                <div class="flex flex-wrap 2xl:max-w-[1536px] 2xl:mx-auto mt-8">
+                    <div @click="setCategory('allCategories')"
                          class="m-2 font-montserrat dark:text-white text-[23px] border-b-2 border-black dark:border-white"
                     >
                         Всі позиції
                     </div>
+                    <div v-for="category in categories" @click="setCategory(category.id)"
+                         class="m-2 font-montserrat dark:text-white text-[23px] border-b-2 border-black dark:border-white"
+                    >
+                        {{ category.name }}
+                    </div>
                 </div>
 
-                <div class="flex justify-center">
-                    <div class="grid gap-[20px] 2xl:grid-cols-4 mt-12 lg:grid-cols-3 sm:grid-cols-2">
-                        <Product v-for="product in products.filter((item) => item.category.name === selectedCategory || selectedCategory === 'allCategories')"
+                <div class="2xl:max-w-[1536px] 2xl:mx-auto">
+                    <div class="grid gap-[20px] grid-cols-fill mt-12">
+                        <Product v-for="product in products.filter((item) => item.category.id === selectedCategory || selectedCategory === 'allCategories')"
                                  :product="product"
                                  :themeColor="themeColor"
+                                 :key="product.id"
                                  @onProductLiked="(value) => showPleaseLoginModal = value"
                         />
                     </div>
@@ -41,9 +42,7 @@
 
 <script>
 import DefaultLayout from "@/Layouts/DefaultLayout.vue";
-import { goTo } from "@/Utils/utils.js";
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
+import {goTo} from "@/Utils/utils.js";
 import {category} from "@/models/customModels.js";
 import Product from "@/Components/Product.vue";
 
@@ -76,6 +75,9 @@ export default {
 
     methods: {
         goTo,
+        setCategory(categoryId) {
+            this.selectedCategory = categoryId;
+        },
     },
 
 }

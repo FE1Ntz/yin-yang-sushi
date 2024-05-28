@@ -28,7 +28,14 @@ import ThemeSwitch from "@/Components/ThemeSwitch.vue";
                              </span>
                          </Link>
                      </div>
-                     <div class="px-4">
+                     <div class="relative px-4">
+                         <span v-if="cartItems > 0"
+                               class="absolute top-[-10px] w-[30px] inline-flex justify-center right-[15px]
+                                      px-2 py-1 text-sm dark:bg-white dark:text-black leading-none bg-black
+                                      text-white rounded-full"
+                         >
+                            {{ cartItems }}
+                         </span>
                          <Link class="flex flex-col items-center" href="/*route('shopping-cart')*/">
                              <img :src="'/icons/shopping-cart/shopping-cart-' + themeColor +'.svg'" alt="SVG Icon">
                              <span>
@@ -72,12 +79,26 @@ import ThemeSwitch from "@/Components/ThemeSwitch.vue";
 </template>
 
 <script>
+import {getCartItems} from "@/Utils/utils.js";
+
 export default {
     data() {
         return {
-            themeColor: 'white'
+            themeColor: 'white',
+            cartItems: 0,
         };
     },
+
+    created() {
+        this.cartItems = getCartItems().reduce((accumulator, item) => accumulator + item.quantity, 0);
+        this.$eventBus.on('onProductQuantityChanges', (quantity) => {this.cartItems += quantity});
+    },
+
+    methods: {
+        addCartCount(productId, count) {
+
+        },
+    }
 };
 </script>
 

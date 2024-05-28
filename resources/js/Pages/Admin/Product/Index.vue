@@ -40,7 +40,7 @@
                             {{ product.category?.name }}
                         </td>
                         <td class="p-4 border border-black">
-                            {{ product.price }}
+                            {{ formatPrice(product.price) }}
                         </td>
                         <td class="p-4 border border-black">
                             {{ product.weight }}
@@ -49,7 +49,7 @@
                             {{ product.discount }}
                         </td>
                         <td class="p-4 border border-black">
-                            {{ product.discounted_price }}
+                            {{ formatPrice(product.discounted_price) }}
                         </td>
                         <td class="p-4 border border-black">
                             {{ productIngredients(product.ingredients) }}
@@ -66,45 +66,55 @@
             </div>
         </div>
         <div v-if="showCreateModal || showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div class="bg-white p-8 rounded-lg w-1/3">
+            <div class="bg-white p-6 min-w-[500px] md:w-4/5 lg:w-3/4 rounded-lg max-w-[930px] m-2">
                 <h2 class="text-2xl mb-4">{{ showCreateModal ? 'Створити продукт' : 'Редагувати продукт' }}</h2>
                 <form @submit.prevent="showCreateModal ? createCategory() : updateCategory()">
-                    <div class="mb-4">
-                        <label for="name" class="block text-sm font-medium text-gray-700">
-                            Назва
-                        </label>
-                        <input type="text" v-model="form.name" id="name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                        <label for="image" class="mt-3 block text-sm font-medium text-gray-700">
-                            Зображення
-                        </label>
-                        <input type="file" id="image" class="outline-0" @change="handleFileChange" accept="image/*">
-                        <label for="category" class="mt-3 block text-sm font-medium text-gray-700">
-                            Категорія
-                        </label>
-                        <select v-model="form.category_id" class="block w-full p-3 border border-gray-300 rounded-md cursor-pointer">
-                            <option disabled>Select an item...</option>
-                            <option v-for="(item, index) in categories" :key="index" :value="item.id">{{ item.name }}</option>
-                        </select>
-                        <PriceInput :value="showCreateModal ? 0 : form.price"
-                                    @setPrice="(value) => form.price = value"
-                        />
-                        <label for="discount" class="mt-3 block text-sm font-medium text-gray-700">
-                            Знижка в %
-                        </label>
-                        <input type="number" v-model="form.discount" id="discount" max="50" step="1" min="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                        <label for="discounted_price" class="mt-3 block text-sm font-medium text-gray-700">
-                            Вага
-                        </label>
-                        <input type="number" v-model="form.weight" id="discounted_price" min="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-                        <label for="ingredients" class="mt-3 block text-sm font-medium text-gray-700">Інгредієнти</label>
-                        <MultiSelect id="ingredients"
-                                     class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-                                     :items="[...ingredients]"
-                                     :selectedItems="showCreateModal ? [] : [...form.ingredients]"
-                                     @setSelectedItems="(value) => form.ingredients = value"
-                        />
+                    <div class="flex flex-col md:flex-row overflow-y-auto max-h-[650px] md:gap-6">
+                        <div class="w-full md:min-w-1/2 max-w-[465px] mb-4">
+                            <label for="name" class="block text-sm font-medium text-gray-700">
+                                Назва
+                            </label>
+                            <input type="text" v-model="form.name" id="name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <span v-if="errors.name">{{ errors.name }}</span>
+                            <label for="category" class="mt-3 block text-sm font-medium text-gray-700">
+                                Категорія
+                            </label>
+                            <select v-model="form.category_id" class="block w-full p-3 border border-gray-300 rounded-md cursor-pointer">
+                                <option v-for="(item, index) in categories" :key="index" :value="item.id">{{ item.name }}</option>
+                            </select>
+                            <PriceInput :value="showCreateModal ? 0 : form.price"
+                                        @setPrice="(value) => form.price = value"
+                            />
+                            <label for="discount" class="mt-3 block text-sm font-medium text-gray-700">
+                                Знижка в %
+                            </label>
+                            <input type="number" v-model="form.discount" id="discount" max="50" step="1" min="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <label for="discounted_price" class="mt-3 block text-sm font-medium text-gray-700">
+                                Вага
+                            </label>
+                            <input type="number" v-model="form.weight" id="discounted_price" min="0" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                        </div>
+                        <div class="flex flex-col w-full">
+                            <label for="ingredients" class="block text-sm font-medium text-gray-700">Інгредієнти</label>
+                            <MultiSelect id="ingredients"
+                                         class="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                                         :items="[...ingredients]"
+                                         :selectedItems="showCreateModal ? [] : [...form.ingredients]"
+                                         @setSelectedItems="(value) => form.ingredients = value"
+                            />
+                            <div class="flex justify-center mt-2 border border-black overflow-hidden">
+                                <img class="h-[220px]" :src="form.image" alt="">
+                            </div>
+                            <div>
+                                <label for="image" class="mt-3 block text-sm font-medium text-gray-700">
+                                    Зображення
+                                </label>
+                                <input type="file" id="image" class="outline-0" @change="handleFileChange" accept="image/*">
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="flex justify-end">
+                    <div class="flex justify-end mt-4">
                         <button type="button" @click="closeModal" class="mr-4 bg-gray-300 px-4 py-2 rounded-md">Скасувати</button>
                         <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">{{ showCreateModal ? 'Створити' : 'Оновити' }}</button>
                     </div>
@@ -132,6 +142,8 @@ import {Link} from "@inertiajs/vue3";
 import {product} from "@/models/customModels.js";
 import MultiSelect from "@/Components/MultiSelect.vue";
 import PriceInput from "@/Components/PriceInput.vue";
+import { router } from '@inertiajs/vue3'
+import {formatPrice} from "@/Utils/utils.js";
 
 export default {
     components: {
@@ -145,6 +157,7 @@ export default {
         products: Array,
         ingredients: Array,
         categories: Array,
+        errors: Object
     },
 
     data() {
@@ -158,10 +171,11 @@ export default {
     },
 
     mounted() {
-        console.log(this.products);
+        console.log(this.message);
     },
 
     methods: {
+        formatPrice,
         openEditModal(product) {
             this.form = product;
             this.showEditModal = true;
@@ -201,19 +215,38 @@ export default {
 
         createCategory() {
             this.$inertia.post(route('products.store'), this.form, {
-                onSuccess: () => this.closeModal(),
+                onSuccess: () => {
+                    this.closeModal();
+                    this.$toast.show('Продукт створено успішно!');
+                },
+                onError: (err) => {
+                    this.$toast.show(err.message);
+                },
             });
         },
 
         updateCategory() {
-            this.$inertia.put(route('products.update', this.form.id), this.form, {
-                onSuccess: () => this.closeModal(),
+            router.put(route('products.update', this.form.id), this.form, {
+                onSuccess: () => {
+                    this.closeModal();
+                    this.$toast.show('Продукт оновлено успішно!');
+                },
+                onError: (err) => {
+                    console.log(err);
+                    console.log(this.errors);
+                },
             });
         },
 
         deleteCategory() {
             this.$inertia.delete(route('products.destroy', this.form.id), {
-                onSuccess: () => this.closeModal(),
+                onSuccess: () => {
+                    this.closeModal();
+                    this.$toast.show('Продукт видалено успішно!');
+                },
+                onError: (err) => {
+                    this.$toast.show(err.message);
+                },
             });
         },
     },
