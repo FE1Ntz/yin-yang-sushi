@@ -5,7 +5,7 @@ export function goTo(href){
 }
 
 export function formatPrice (n) {
-    return numeral(n).format('0,0.00') + ' ₴'
+    return numeral(n).format('0,0.00') + '₴'
 }
 
 export function getCartItems() {

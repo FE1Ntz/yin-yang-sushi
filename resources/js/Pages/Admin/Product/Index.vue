@@ -43,7 +43,7 @@
                             {{ formatPrice(product.price) }}
                         </td>
                         <td class="p-4 border border-black">
-                            {{ product.weight }}
+                            {{ product.weight }}г
                         </td>
                         <td class="p-4 border border-black">
                             {{ product.discount }}
@@ -56,8 +56,12 @@
                         </td>
                         <td class="p-4">
                             <div class="flex justify-around">
-                                <button @click="openEditModal({...product})" class="text-blue-600 hover:underline px-1">Редагувати</button>
-                                <button @click="openDeleteModal({...product})" class="text-red-600 hover:underline px-1">Видалити</button>
+                                <button @click="openEditModal({...product})" class="text-blue-600 px-1">
+                                    <img class="w-[20px] h-[20px] max-w-none" :src="'/icons/pencil/pencil-' + themeColor +'.svg'" alt="SVG Icon">
+                                </button>
+                                <button @click="openDeleteModal({...product})" class="text-red-600 hover:underline px-1">
+                                    <img class="w-[20px] h-[20px] max-w-none" :src="'/icons/trash/trash-' + themeColor +'.svg'" alt="SVG Icon">
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -167,6 +171,7 @@ export default {
             showEditModal: false,
             showDeleteModal: false,
             form: {...product},
+            themeColor: 'white',
         };
     },
 
