@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import ThemeSwitch from "@/Components/ThemeSwitch.vue";
+import {getCartItems} from "@/Utils/utils.js";
 </script>
 
 <template>
@@ -36,12 +37,12 @@ import ThemeSwitch from "@/Components/ThemeSwitch.vue";
                          >
                             {{ cartItems }}
                          </span>
-                         <Link class="flex flex-col items-center" href="/*route('shopping-cart')*/">
+                         <div @click="goToCart" class="flex flex-col items-center">
                              <img :src="'/icons/shopping-cart/shopping-cart-' + themeColor +'.svg'" alt="SVG Icon">
                              <span>
                                  Кошик
                              </span>
-                         </Link>
+                         </div>
                      </div>
                      <div v-if="$page.props.auth.user?.role === 'admin'" class="px-4">
                          <Link class="flex flex-col items-center" :href="route('admin.index')">
@@ -79,7 +80,8 @@ import ThemeSwitch from "@/Components/ThemeSwitch.vue";
 </template>
 
 <script>
-import {getCartItems} from "@/Utils/utils.js";
+import {getCartItems, goTo} from "@/Utils/utils.js";
+import {router} from "@inertiajs/vue3";
 
 export default {
     data() {
@@ -95,9 +97,11 @@ export default {
     },
 
     methods: {
-        addCartCount(productId, count) {
-
-        },
+        goToCart(){
+            router.post(route('add-to-cart'), getCartItems(), {
+                onSuccess: () => goTo(route('cart.index')),
+            });
+        }
     }
 };
 </script>

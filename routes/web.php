@@ -43,6 +43,7 @@ Route::get('/old_welcome', function () {
 
 Route::post('/set-theme', [ThemeController::class, 'setTheme'])->name('set-theme');
 Route::get('/get-theme', [ThemeController::class, 'getTheme'])->name('get-theme');
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
 
 Route::get('/dashboard', function () {
