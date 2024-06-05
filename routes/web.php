@@ -34,21 +34,11 @@ Route::get('/about-us', function () {
 })->name('about-us');
 
 
-Route::get('/old_welcome', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-    ]);
-});
-
 Route::post('/set-theme', [ThemeController::class, 'setTheme'])->name('set-theme');
 Route::get('/get-theme', [ThemeController::class, 'getTheme'])->name('get-theme');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::post('/store-order', [CartController::class, 'storeOrder'])->name('store-order');
 
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 

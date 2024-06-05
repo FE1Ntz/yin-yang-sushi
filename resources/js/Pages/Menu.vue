@@ -2,27 +2,40 @@
     <DefaultLayout v-slot="{ themeColor }">
         <div class="flex">
             <div class="p-4 flex-1 overflow-y-auto">
-                <div class="flex flex-wrap 2xl:max-w-[1536px] 2xl:mx-auto mt-8">
-                    <div @click="setCategory('allCategories')"
-                         class="m-2 font-montserrat dark:text-white text-[23px] border-b-2 border-black dark:border-white"
-                    >
-                        Всі позиції
+                <div class="flex justify-between flex-col md:items-center md:flex-row 2xl:max-w-[1536px] 2xl:mx-auto mt-8">
+                    <div class="flex flex-wrap">
+                        <div @click="setCategory('allCategories')"
+                             class="m-2 font-montserrat dark:text-white text-[23px] border-b-2 border-black dark:border-white"
+                        >
+                            Всі позиції
+                        </div>
+                        <div v-for="category in categories" @click="setCategory(category.id)"
+                             class="m-2 font-montserrat dark:text-white text-[23px] border-b-2 border-black dark:border-white"
+                        >
+                            {{ category.name }}
+                        </div>
                     </div>
-                    <div v-for="category in categories" @click="setCategory(category.id)"
-                         class="m-2 font-montserrat dark:text-white text-[23px] border-b-2 border-black dark:border-white"
-                    >
-                        {{ category.name }}
+                    <div class="m-2 min-w-[200px]">
+
+                        <input class="rounded-md shadow-sm dark:bg-[#252525] focus:ring-black focus:dark:ring-white focus:border-black focus:dark:border-white block w-full text-black dark:text-white"
+                               @input="findByName"
+                        >
                     </div>
                 </div>
-
-                <div class="2xl:max-w-[1536px] 2xl:mx-auto">
+                <div v-if="filteredProducts.length > 0" class="2xl:max-w-[1536px] 2xl:mx-auto">
                     <div class="grid gap-[20px] grid-cols-fill mt-12">
-                        <Product v-for="product in products.filter((item) => item.category.id === selectedCategory || selectedCategory === 'allCategories')"
+                        <Product v-for="product in filteredProducts"
                                  :product="product"
                                  :themeColor="themeColor"
                                  :key="product.id"
                                  @onProductLiked="(value) => showPleaseLoginModal = value"
                         />
+                    </div>
+                </div>
+                <div class="2xl:max-w-[1536px] font-montserrat dark:text-white 2xl:mx-auto min-h-[450px]" v-else>
+                    <div class="flex items-center flex-col h-[450px] justify-center">
+                        <img class="w-[60px] h-[60px] mb-8" :src="'/icons/filter-not-found/filter-not-found-' + themeColor + '.svg'" alt="">
+                        Товарів не знайдено
                     </div>
                 </div>
             </div>
@@ -50,6 +63,13 @@ export default {
     computed: {
         category() {
             return category
+        },
+        filteredProducts() {
+            return this.products.filter((item) => {
+                const isNameMatch = item.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+                const isCategoryMatch = item.category.id === this.selectedCategory || this.selectedCategory === 'allCategories';
+                return isNameMatch && isCategoryMatch;
+            });
         }
     },
     props: {
@@ -66,6 +86,7 @@ export default {
         return {
             showPleaseLoginModal: false,
             selectedCategory: 'allCategories',
+            searchQuery: '',
         };
     },
 
@@ -78,8 +99,10 @@ export default {
         setCategory(categoryId) {
             this.selectedCategory = categoryId;
         },
+        findByName(event) {
+            this.searchQuery = event.target.value;
+        },
     },
-
 }
 </script>
 

@@ -120,7 +120,7 @@
                     </div>
                     <div class="flex justify-end mt-4">
                         <button type="button" @click="closeModal" class="mr-4 bg-gray-300 px-4 py-2 rounded-md">Скасувати</button>
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">{{ showCreateModal ? 'Створити' : 'Оновити' }}</button>
+                        <button type="submit" class="bg-black text-white px-4 py-2 rounded-md">{{ showCreateModal ? 'Створити' : 'Оновити' }}</button>
                     </div>
                 </form>
             </div>

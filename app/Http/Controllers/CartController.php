@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -41,5 +42,25 @@ class CartController extends Controller
         });
 
         Session::put('products', $products);
+    }
+
+    public function storeOrder(Request $request){
+        dd($request->all());
+        $order = $this->createOrder($request);
+        $products = $request->input('products');
+        $productData = [];
+        foreach ($products as $product) {
+            $productData[$product['id']] = ['quantity' => $product['quantity']];
+        }
+        $order->products()->attach($productData);
+
+        Session::forget('products');
+
+        return redirect()->route('products.index');
+    }
+
+    private function createOrder(Request $request): Order
+    {
+        return Order::query()->create($request->all());
     }
 }

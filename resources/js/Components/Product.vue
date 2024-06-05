@@ -11,7 +11,7 @@
         </div>
         <div class="flex mt-auto pt-4 justify-between">
             <div class="text-[23px] flex items-center font-bold">
-                {{ calculatePrice() }}
+                {{ formatPrice(product.discounted_price) }}
             </div>
             <div class="flex">
                 <template v-if="quantity >= 1">
@@ -74,11 +74,12 @@ export default {
     },
 
     methods: {
+        formatPrice,
         likeProduct(){
             if(this.$page.props.auth.user){
                 this.isLiked = !this.isLiked
                 if (this.isLiked){
-                    this.$toast.show('Продукт було додано до обраного!', 3000);
+                    this.$toast.show('Продукт було додано до обраного!');
                 }
 
                 return;
@@ -87,27 +88,19 @@ export default {
             this.$emit('onProductLiked',true);
         },
 
-        calculatePrice(){
-            if(this.product. discount === 0){
-                return formatPrice(this.product.price);
-            }
-
-            return formatPrice(this.product.price * this.product.discount / 100);
-        },
-
         increment(product) {
             this.quantity += 1;
             this.$eventBus.emit('onProductQuantityChanges', 1);
             setCartItemQuantity(product, this.quantity);
             if (this.quantity === 1){
-                this.$toast.show('Продукт було додано до корзини!', 3000);
+                this.$toast.show('Продукт було додано до корзини!');
             }
         },
 
         decrement(product) {
             this.quantity -= 1;
             if (this.quantity === 0) {
-                this.$toast.show('Продукт було вилучено з корзини!', 3000);
+                this.$toast.show('Продукт було вилучено з корзини!');
             }
 
             setCartItemQuantity(product, this.quantity);
