@@ -5,7 +5,22 @@ export function goTo(href){
 }
 
 export function formatPrice (n) {
-    return numeral(n).format('0,0.00') + '₴'
+    return numeral(n).format('0,0') + ' ₴'
+}
+
+export function formatDate(inputDate) {
+    // Створюємо об'єкт Date з вхідної дати
+    const date = new Date(inputDate);
+
+    // Отримуємо день, місяць, рік, години та хвилини
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Місяці починаються з 0
+    const year = String(date.getFullYear()).slice(2); // Останні дві цифри року
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    // Форматуємо дату в потрібний формат
+    return `${day}.${month}.${year}, ${hours}:${minutes}`;
 }
 
 export function getCartItems() {

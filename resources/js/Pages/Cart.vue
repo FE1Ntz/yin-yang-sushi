@@ -55,16 +55,19 @@
                     <div class="flex gap-3">
                         <div class="mb-4 w-full lg:w-1/2">
                             <label for="name" class="block text-gray-700">Ім'я</label>
-                            <input type="text" id="name" required v-model="order.name" class="w-full border rounded px-2 py-1">
+                            <input type="text" id="name" required v-model="order.name"
+                                   class="w-full border rounded px-2 py-1 shadow-sm dark:bg-[#252525] focus:ring-black focus:dark:ring-white focus:border-black focus:dark:border-white block text-black dark:text-white">
                         </div>
                         <div class="mb-4 w-full lg:w-1/2">
                             <label for="email" class="block text-gray-700">Електронна пошта</label>
-                            <input type="email" id="email" required v-model="order.email" class="w-full border rounded px-2 py-1">
+                            <input type="email" id="email" required v-model="order.email"
+                                   class="w-full border rounded px-2 py-1 shadow-sm dark:bg-[#252525] focus:ring-black focus:dark:ring-white focus:border-black focus:dark:border-white block text-black dark:text-white">
                         </div>
                     </div>
                     <div class="mb-4">
                         <label for="phone" class="block text-gray-700">Номер телефону</label>
-                        <input type="text" id="phone" required v-model="order.phoneNumber" class="w-full border rounded px-2 py-1">
+                        <input type="text" id="phone" required v-model="order.phoneNumber"
+                               class="w-full border rounded px-2 py-1 shadow-sm dark:bg-[#252525] focus:ring-black focus:dark:ring-white focus:border-black focus:dark:border-white block text-black dark:text-white">
                     </div>
                     <div class="flex flex-wrap gap-[20px]">
                         <div class="mb-4 min-w-[290px]">
@@ -115,7 +118,7 @@
                         <input type="text" id="address" v-model="order.address" class="w-full border rounded px-2 py-1">
                     </div>
                     <div class="flex justify-end">
-                        <button type="submit" class="bg-black text-white px-4 py-2 rounded">Оформити замовлення</button>
+                        <button type="submit" :class="[{'pointer-events-none opacity-40': cartItems.length === 0 }, 'bg-black text-white px-4 py-2 rounded']">Оформити замовлення</button>
                     </div>
                 </form>
             </div>
@@ -177,15 +180,16 @@ export default {
         return {
             cartItems: [...this.products],
             order: {
-                name: '',
-                email: '',
+                name: this.$page.props.auth.user?.name ?? '',
+                email: this.$page.props.auth.user?.email ?? '',
                 address: '',
-                phoneNumber: '',
+                phoneNumber: this.$page.props.auth.user?.phone_number ?? '',
                 delivery_way: 'В закладі',
                 payment_method: 'Кредитна карта',
                 table_id: '9',
                 products: [],
                 price: 0,
+                user_id: this.$page.props.auth.user?.id,
             },
             showRestaurantPlan: false,
             showCreditCardForm: false,
@@ -207,6 +211,7 @@ export default {
     },
 
     created() {
+        console.log(this.$page.props.auth.user);
         console.log(this.products);
     },
 
@@ -221,7 +226,7 @@ export default {
         },
 
         submitOrder() {
-            this.price = this.cartItems.reduce((total, item) => total + item.discounted_price * item.quantity, 0);
+            this.order.price = this.cartItems.reduce((total, item) => total + item.discounted_price * item.quantity, 0);
             this.order.products = this.cartItems;
             router.post(route('store-order'), this.order, {
                 onSuccess: () => {

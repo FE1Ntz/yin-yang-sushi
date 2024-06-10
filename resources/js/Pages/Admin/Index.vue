@@ -1,7 +1,9 @@
 <template>
     <AdminLayout>
-        <div class="flex">
-            asdasdasd123123
+        <div class="p-8 flex-1 overflow-y-auto">
+            <div class="flex justify-between">
+                <div class="font-bold font-montserrat text-[50px]">Замовлення</div>
+            </div>
         </div>
     </AdminLayout>
 </template>

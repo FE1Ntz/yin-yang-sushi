@@ -44,6 +44,7 @@
 
 <script>
 import {setCartItemQuantity, formatPrice, getCartItems} from "@/Utils/utils.js";
+import {router} from "@inertiajs/vue3";
 
 export default {
     data(){
@@ -67,6 +68,7 @@ export default {
     },
 
     mounted() {
+        this.isLiked = this.product.isLiked ?? false;
         let item = getCartItems().filter((item) => item.id === this.product.id)[0];
         if(item !== undefined){
             this.quantity = item.quantity;
@@ -79,7 +81,25 @@ export default {
             if(this.$page.props.auth.user){
                 this.isLiked = !this.isLiked
                 if (this.isLiked){
-                    this.$toast.show('Продукт було додано до обраного!');
+                    router.put(route('add-to-favorite'), { productId: this.product.id, }, {
+                        preserveScroll: true,
+                        onSuccess: () => {
+                            this.$toast.show('Продукт було додано до обраного!');
+                        },
+                        onError: () => {
+                            this.isLiked = !this.isLiked;
+                            this.$toast.show('Щось пішло не так спробуйте пізніше.');
+                        }
+                    });
+                }
+                else {
+                    router.put(route('remove-from-favorite'), { productId: this.product.id, }, {
+                        preserveScroll: true,
+                        onError: () => {
+                            this.isLiked = !this.isLiked;
+                            this.$toast.show('Щось пішло не так спробуйте пізніше.');
+                        }
+                    });
                 }
 
                 return;

@@ -11,16 +11,15 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'email', 'address', 'phoneNumber', 'delivery_way', 'payment_method',
-        'table_id', 'price', 'starDelivery',  'finishDelivery', 'status'
+        'table_id', 'price', 'starDelivery',  'finishDelivery', 'status', 'user_id',
     ];
 
     protected $casts = [
         'price' => 'float',
     ];
 
-
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot(['quantity', 'price']);
     }
 }

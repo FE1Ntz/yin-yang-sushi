@@ -43,9 +43,16 @@ Route::post('/store-order', [CartController::class, 'storeOrder'])->name('store-
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile-old', [ProfileController::class, 'indexOld'])->name('profile-old');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/store-address', [ProfileController::class, 'storeAddress'])->name('store-address');
+    Route::put('/update-address', [ProfileController::class, 'updateAddress'])->name('update-address');
+    Route::delete('/delete-address', [ProfileController::class, 'deleteAddress'])->name('delete-address');
+    Route::put('/add-to-favorite', [MenuController::class, 'addToFavorite'])->name('add-to-favorite');
+    Route::put('/remove-from-favorite', [MenuController::class, 'removeFromFavorite'])->name('remove-from-favorite');
+
     Route::get('/admin', function (){
         return Inertia::render('Admin/Index');
     })->name('admin.index')->middleware('role:admin');
@@ -53,6 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/admin/ingredients', IngredientController::class)->middleware('role:admin');
     Route::resource('/admin/products', ProductController::class)->middleware('role:admin');
 });
+
+
 
 
 

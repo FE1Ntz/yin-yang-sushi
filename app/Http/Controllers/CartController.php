@@ -45,18 +45,21 @@ class CartController extends Controller
     }
 
     public function storeOrder(Request $request){
-        dd($request->all());
+        //dd($request->all());
         $order = $this->createOrder($request);
         $products = $request->input('products');
         $productData = [];
         foreach ($products as $product) {
-            $productData[$product['id']] = ['quantity' => $product['quantity']];
+            $productData[$product['id']] = [
+                'quantity' => $product['quantity'],
+                'price' => $product['discounted_price']
+            ];
         }
         $order->products()->attach($productData);
 
         Session::forget('products');
 
-        return redirect()->route('products.index');
+        return redirect()->route('menu');
     }
 
     private function createOrder(Request $request): Order
