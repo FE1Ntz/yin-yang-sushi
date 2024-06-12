@@ -4,6 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Link, useForm, usePage } from '@inertiajs/vue3';
+import PhoneInput from "@/Components/PhoneInput.vue";
 
 defineProps({
     mustVerifyEmail: {
@@ -67,15 +68,13 @@ const form = useForm({
             <div>
                 <InputLabel for="phoneNumber" value="Номер телефону" />
 
-                <TextInput
+                <PhoneInput
                     id="phoneNumber"
-                    type="text"
+                    class="mt-1 block w-full"
                     placeholder="+380(__)___-__-__"
                     data-slots="_"
-                    class="mt-1 block w-full"
                     v-model="form.phone_number"
                     required
-                    autocomplete="phone"
                 />
 
                 <InputError class="mt-2" :message="form.errors.phone_number" />

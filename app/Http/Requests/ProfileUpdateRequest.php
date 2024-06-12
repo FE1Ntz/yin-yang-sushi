@@ -18,7 +18,11 @@ class ProfileUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
-            'phone_number' => ['required', 'string', 'size:17'],
+            'phone_number' => ['required', 'string', 'size:17', function ($attribute, $value, $fail) {
+                if (str_ends_with($value, '_')) {
+                    $fail('Введіть валідний номер телефону.');
+                }
+            }],
         ];
     }
 }
