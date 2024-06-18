@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\IngredientController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MenuController;
@@ -53,9 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/add-to-favorite', [MenuController::class, 'addToFavorite'])->name('add-to-favorite');
     Route::put('/remove-from-favorite', [MenuController::class, 'removeFromFavorite'])->name('remove-from-favorite');
 
-    Route::get('/admin', function (){
-        return Inertia::render('Admin/Index');
-    })->name('admin.index')->middleware('role:admin');
+    Route::get('/admin', [OrderController::class, 'index'])->name('admin.index')->middleware('role:admin');
+    Route::put('/order-update/{order}', [OrderController::class, 'update'])->name('order.update')->middleware('role:admin');
     Route::resource('/admin/categories', CategoryController::class)->middleware('role:admin');
     Route::resource('/admin/ingredients', IngredientController::class)->middleware('role:admin');
     Route::resource('/admin/products', ProductController::class)->middleware('role:admin');

@@ -3,7 +3,7 @@
         <div class="min-h-[700px] max-w-[1536px] mx-auto px-8 my-10">
             <div class="flex flex-col lg:flex-row">
                 <div class="w-full lg:w-[246px]">
-                    <div class="flex flex-row flex-wrap lg:flex-col gap-[12px]">
+                    <div class="flex flex-row flex-wrap lg:flex-col gap-[12px] mb-4">
                         <div :class="[{'bg-black text-white dark:text-black dark:bg-white': activeTab === 'orderHistory'},
                                 'min-w-fit flex-1 flex items-center rounded-xl py-[10px] px-[12px] cursor-pointer']"
                              @click="setActiveTab('orderHistory')"
@@ -48,15 +48,21 @@
                     >
                         <h1 class="text-[calc(1.425rem+1.4vw)] mb-8 font-bold leading-[133%]">Історія замовлень</h1>
                         <div class="flex flex-wrap">
-                            <div class="bg-black w-[120px] flex justify-center items-center text-white rounded-xl p-3 mr-3">Всі</div>
-                            <div class="bg-black w-[120px] flex justify-center items-center text-white rounded-xl p-3 mr-3">Отримано</div>
-                            <div class="bg-black w-[120px] flex justify-center items-center text-white rounded-xl p-3 mr-3">Готується</div>
-                            <div class="bg-black w-[120px] flex justify-center items-center text-white rounded-xl p-3 mr-3">Доставляється</div>
-                            <div class="bg-black w-[120px] flex justify-center items-center text-white rounded-xl p-3 mr-3">Виконано</div>
-                            <div class="bg-black w-[120px] flex justify-center items-center text-white rounded-xl p-3 mr-3">Скасовано</div>
+                            <div class="bg-black w-[120px] mb-2 flex justify-center items-center text-white rounded-xl p-3 mr-3"
+                                 @click="filterByStatus('Всі')">Всі</div>
+                            <div class="bg-black w-[120px] mb-2 flex justify-center items-center text-white rounded-xl p-3 mr-3"
+                                 @click="filterByStatus('Отримано')">Отримано</div>
+                            <div class="bg-black w-[120px] mb-2 flex justify-center items-center text-white rounded-xl p-3 mr-3"
+                                 @click="filterByStatus('Готується')">Готується</div>
+                            <div class="bg-black w-[120px] mb-2 flex justify-center items-center text-white rounded-xl p-3 mr-3"
+                                 @click="filterByStatus('Доставляється')">Доставляється</div>
+                            <div class="bg-black w-[120px] mb-2 flex justify-center items-center text-white rounded-xl p-3 mr-3"
+                                 @click="filterByStatus('Виконано')">Виконано</div>
+                            <div class="bg-black w-[120px] mb-2 flex justify-center items-center text-white rounded-xl p-3 mr-3"
+                                 @click="filterByStatus('Скасовано')">Скасовано</div>
                         </div>
                         <OrderCard
-                            v-for="order in orders"
+                            v-for="order in orders.filter((item) => item.status === selectedFilter || selectedFilter === 'Всі')"
                             :order="order"
                         />
                     </div>
@@ -180,6 +186,7 @@ export default {
           showAddModal: false,
           showEditModal: false,
           showDeleteModal: false,
+          selectedFilter: 'Всі',
           addressForm: { address: ''},
       };
     },
@@ -208,6 +215,10 @@ export default {
         goTo,
         setActiveTab(tab) {
             this.activeTab = tab;
+        },
+
+        filterByStatus(status) {
+            this.selectedFilter = status;
         },
 
         closeModal(){

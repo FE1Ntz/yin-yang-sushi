@@ -31,13 +31,9 @@
                         {{ formatPrice(order.price) }}
                     </div>
                 </div>
-                <!--<div class="py-[12px] px-[16px] rounded-xl flex flex-col bg-white items-center justify-center flex-shrink-0 h-auto">
-                    <img class="w-[20px] h-[20px]" :src="'/icons/refresh/refresh-white.svg'" alt="">
-                    Повторити
-                </div>-->
             </div>
         </div>
-        <div class="flex mb-3 text-white h-[65px] p-3">
+        <div class="flex flex-col sm:flex-row sm:h-[65px] mb-3 text-white p-3">
             <div :class="[{ 'bg-white rounded-md text-black': order.status === 'Отримано' }, 'flex-1 flex items-center justify-center']">
                 Отримано
             </div>

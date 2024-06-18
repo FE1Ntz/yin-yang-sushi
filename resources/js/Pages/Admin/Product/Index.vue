@@ -70,7 +70,7 @@
             </div>
         </div>
         <div v-if="showCreateModal || showEditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div class="bg-white p-6 min-w-[500px] md:w-4/5 lg:w-3/4 rounded-lg max-w-[930px] m-2">
+            <div class="bg-white p-6 min-w-[300px] md:w-4/5 lg:w-3/4 rounded-lg max-w-[930px] m-2">
                 <h2 class="text-2xl mb-4">{{ showCreateModal ? 'Створити продукт' : 'Редагувати продукт' }}</h2>
                 <form @submit.prevent="showCreateModal ? createCategory() : updateCategory()">
                     <div class="flex flex-col md:flex-row overflow-y-auto max-h-[650px] md:gap-6">

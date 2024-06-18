@@ -45,7 +45,6 @@ class CartController extends Controller
     }
 
     public function storeOrder(Request $request){
-        //dd($request->all());
         $order = $this->createOrder($request);
         $products = $request->input('products');
         $productData = [];
