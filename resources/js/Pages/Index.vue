@@ -7,7 +7,6 @@ import DefaultLayout from "@/Layouts/DefaultLayout.vue";
     <DefaultLayout>
         <div class="h-[500px] bg-[url('img/home-banner.png')] bg-cover flex items-center">
             <div class="font-bold font-montserrat text-white ml-[5%]">
-                <!--//bg-black text-white dark:text-black dark:bg-white-->
                 <h2 class="text-[40px]">
                     Вітаємо<br>в YING&YANG —
                 </h2>

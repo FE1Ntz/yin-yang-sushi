@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\IngredientController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
@@ -59,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/admin/categories', CategoryController::class)->middleware('role:admin');
     Route::resource('/admin/ingredients', IngredientController::class)->middleware('role:admin');
     Route::resource('/admin/products', ProductController::class)->middleware('role:admin');
+    Route::resource('/admin/users', UserController::class)->middleware('role:admin');
 });
 
 

@@ -18,13 +18,13 @@
                 </Link>
                 <Link :href="route('categories.index')">
                     <div :class="['flex m-4', isCollapsed ? 'justify-center': '']">
-                        <img :src="'/icons/menu/menu-' + colorTheme +'.svg'" alt="SVG Icon">
+                        <img :src="'/icons/category/category-' + colorTheme +'.svg'" alt="SVG Icon">
                         <span v-if="!isCollapsed" class="ml-2">Категорії</span>
                     </div>
                 </Link>
                 <Link :href="route('ingredients.index')">
                     <div :class="['flex m-4', isCollapsed ? 'justify-center': '']">
-                        <img :src="'/icons/menu/menu-' + colorTheme +'.svg'" alt="SVG Icon">
+                        <img :src="'/icons/ingredients/ingredients-' + colorTheme +'.svg'" alt="SVG Icon">
                         <span v-if="!isCollapsed" class="ml-2">Інгредієнти</span>
                     </div>
                 </Link>
@@ -34,18 +34,12 @@
                         <span v-if="!isCollapsed" class="ml-2">Продукти</span>
                     </div>
                 </Link>
-                <div :class="['flex m-4', isCollapsed ? 'justify-center': '']">
-                    <img :src="'/icons/analytics/analytics-' + colorTheme +'.svg'" alt="SVG Icon">
-                    <span v-if="!isCollapsed" class="ml-2">Аналітика</span>
-                </div>
-                <div :class="['flex m-4', isCollapsed ? 'justify-center': '']">
-                    <img :src="'/icons/user/user-' + colorTheme +'.svg'" alt="SVG Icon">
-                    <span v-if="!isCollapsed" class="ml-2">Користувачі</span>
-                </div>
-                <div :class="['flex m-4', isCollapsed ? 'justify-center': '']">
-                    <img :src="'/icons/settings/settings-' + colorTheme +'.svg'" alt="SVG Icon">
-                    <span v-if="!isCollapsed" class="ml-2">Налаштування</span>
-                </div>
+                <Link :href="route('users.index')">
+                    <div :class="['flex m-4', isCollapsed ? 'justify-center': '']">
+                        <img :src="'/icons/user/user-' + colorTheme +'.svg'" alt="SVG Icon">
+                        <span v-if="!isCollapsed" class="ml-2">Користувачі</span>
+                    </div>
+                </Link>
             </div>
             <Link :href="route('logout')" method="post" as="button">
                 <div class="flex py-2 justify-center bg-red-500">

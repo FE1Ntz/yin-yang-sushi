@@ -4,10 +4,10 @@
             <div
                 class="w-11/12 h-[400px] bg-opacity-85 dark:bg-opacity-85 rounded-[10px] md:w-full sm:max-w-md m-2 px-6 py-4 bg-white dark:bg-black shadow-md overflow-hidden"
             >
-                <h1 class="flex justify-center mb-3 text-black dark:text-white text-[25px]">LOG IN</h1>
+                <h1 class="flex justify-center mb-3 text-black dark:text-white text-[25px]">УВІЙТИ</h1>
                 <form @submit.prevent="login">
                     <div>
-                        <InputLabel class="text-black dark:text-white" for="email" value="Email"/>
+                        <InputLabel class="text-black dark:text-white" for="email" value="Електронна пошта"/>
                         <TextInput
                             id="l-email"
                             type="email"
@@ -19,7 +19,7 @@
                         <InputError class="mt-2" :message="loginForm.errors.email"/>
                     </div>
                     <div class="mt-4">
-                        <InputLabel class="text-black dark:text-white" for="password" value="Password"/>
+                        <InputLabel class="text-black dark:text-white" for="password" value="Пароль"/>
                         <TextInput
                             id="l-password"
                             type="password"
@@ -33,7 +33,7 @@
                     <div class="block mt-4">
                         <label class="flex items-center">
                             <Checkbox name="l-remember" v-model:checked="loginForm.remember"/>
-                            <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Remember me</span>
+                            <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">Запам'ятати мене</span>
                         </label>
                     </div>
                     <div class="flex items-center justify-end mt-4">
@@ -42,11 +42,11 @@
                             :href="route('password.request')"
                             class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md"
                         >
-                            Forgot your password?
+                            Забули ваш пароль?
                         </Link>
                         <PrimaryButton class="ms-4 text-black dark:text-white"
                                        :class="{ 'opacity-25': loginForm.processing }" :disabled="loginForm.processing">
-                            Log in
+                            Увіти
                         </PrimaryButton>
                     </div>
                 </form>
@@ -54,10 +54,10 @@
             <div
                 class="w-11/12 h-[400px] bg-opacity-85 dark:bg-opacity-85 md:w-full sm:max-w-md m-2 px-6 py-4 rounded-[10px] bg-white dark:bg-black shadow-md overflow-hidden"
             >
-                <h1 class="flex justify-center text-black dark:text-white mb-3 text-[25px]">REGISTRATION</h1>
+                <h1 class="flex justify-center text-black dark:text-white mb-3 text-[25px]">РЕГІСТРАЦІЯ</h1>
                 <form @submit.prevent="register">
                     <div>
-                        <InputLabel class="text-black dark:text-white" for="email" value="Email"/>
+                        <InputLabel class="text-black dark:text-white" for="email" value="Електронна пошта"/>
                         <TextInput
                             id="email"
                             type="email"
@@ -69,7 +69,7 @@
                         <InputError class="mt-2" :message="registrationForm.errors.email"/>
                     </div>
                     <div class="mt-4">
-                        <InputLabel class="text-black dark:text-white" for="password" value="Password"/>
+                        <InputLabel class="text-black dark:text-white" for="password" value="Пароль"/>
                         <TextInput
                             id="password"
                             type="password"
@@ -80,7 +80,7 @@
                         <InputError class="mt-2" :message="registrationForm.errors.password"/>
                     </div>
                     <div class="mt-4">
-                        <InputLabel class="text-black dark:text-white" for="password_confirmation" value="Confirm Password"/>
+                        <InputLabel class="text-black dark:text-white" for="password_confirmation" value="Підтвердити пароль"/>
                         <TextInput
                             id="confirm-password"
                             type="password"
@@ -94,7 +94,7 @@
                         <PrimaryButton class="ms-4 text-black dark:text-white"
                                        :class="{ 'opacity-25': registrationForm.processing }"
                                        :disabled="registrationForm.processing">
-                            Registration
+                            Зареєструватись
                         </PrimaryButton>
                     </div>
                 </form>
